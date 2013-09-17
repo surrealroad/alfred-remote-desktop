@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.surrealroad.alfred-remotedesktop</string>
+	<key>connections</key>
+	<dict>
+		<key>F3F801AF-6AC8-431B-8D51-BF730F5CBE5B</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>16521BFF-AD77-4A99-85F6-F06BC4C6E80F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Jack James</string>
+	<key>description</key>
+	<string>Administer systems via Remote Desktop</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Remote Desktop</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>keyword</key>
+				<string>rd</string>
+				<key>runningsubtext</key>
+				<string>Assimilating computers</string>
+				<key>script</key>
+				<string>property uid : "remote-desktop"property workflowFolder : do shell script "pwd"property lib: load script POSIX file (workflowFolder &amp; "/alfred_library.scpt")my alfred_script("{query}")on alfred_script(q)	tell application id "com.apple.RemoteDesktop"		if q is "" then			set computerList to every computer		else			set computerList to every computer whose (name contains q or Internet address contains q)		end if	end tell	--return computerList	set result to {}	repeat with comp in computerList		set result to result &amp; {lib's alfred_result_item(comp's id, comp's name, comp's Internet address, comp's id, "yes")}	end repeat	return lib's alfred_result_items(result)end alfred_script</string>
+				<key>subtext</key>
+				<string>Administer computers remotely</string>
+				<key>title</key>
+				<string>Remote Desktop</string>
+				<key>type</key>
+				<integer>6</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>F3F801AF-6AC8-431B-8D51-BF730F5CBE5B</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)	tell application id "com.apple.RemoteDesktop"
+		activate		control computer id q	end tellend alfred_script</string>
+				<key>cachescript</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>16521BFF-AD77-4A99-85F6-F06BC4C6E80F</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Connects to computer via Apple Remote Desktop
+
+Usage: "rd remote_computer_name_or_ip"
+
+Change log:
+
+Monday, 8 April 2013 – Minor bugfixes
+Sunday, 31 March 2013 – Open in foreground
+Wednesday, 27 March 2013 – First release</string>
+	<key>uidata</key>
+	<dict>
+		<key>16521BFF-AD77-4A99-85F6-F06BC4C6E80F</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>F3F801AF-6AC8-431B-8D51-BF730F5CBE5B</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://www.surrealroad.com</string>
+</dict>
+</plist>
